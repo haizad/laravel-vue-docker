@@ -21,6 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/**
+ * reset password routes
+ */
 Route::get('/reset-password/{token}', function ($token) {
     return view('auth.passwords.reset', ['token' => $token]);
 })->middleware(['guest'])->name('password.reset');
@@ -49,5 +52,6 @@ Route::post('/reset-password', function (Request $request) {
                 ? redirect()->route('login')->with('status', __($status))
                 : back()->withErrors(['email' => __($status)]);
 })->middleware(['guest'])->name('password.update');
+
 
 Route::view('home','home')->middleware('auth');
