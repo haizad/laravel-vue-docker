@@ -32,12 +32,24 @@ services:
     networks:
       - laravel-project
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0.1
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: abc123
+    ports:
+      - "8000:80"
+    networks:
+      - laravel-project
+
   nginx:
     image: nginx:alpine
     container_name: laravel-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 8080:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
